@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GuestHouseReservation.Web.Data.Migrations
+namespace GuestHouseReservation.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(GHReservationDbContext))]
+    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -125,7 +125,7 @@ namespace GuestHouseReservation.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GuestHouseReservation.Web.Models.ApplicationUser", b =>
+            modelBuilder.Entity("GuestHouseReservation.Web.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -184,7 +184,7 @@ namespace GuestHouseReservation.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("GuestHouseReservation.Web.Models.ApplicationUser")
+                    b.HasOne("GuestHouseReservation.Web.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -192,7 +192,7 @@ namespace GuestHouseReservation.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("GuestHouseReservation.Web.Models.ApplicationUser")
+                    b.HasOne("GuestHouseReservation.Web.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -205,7 +205,7 @@ namespace GuestHouseReservation.Web.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("GuestHouseReservation.Web.Models.ApplicationUser")
+                    b.HasOne("GuestHouseReservation.Web.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
