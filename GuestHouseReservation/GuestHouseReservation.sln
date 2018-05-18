@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuestHouseReservation.Web",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuestHouseReservation.Data", "GuestHouseReservation.Data\GuestHouseReservation.Data.csproj", "{F296F0A2-9352-4107-AAF5-C26C7F293828}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuestHouseReservation.Services", "GuestHouseReservation.Services\GuestHouseReservation.Services.csproj", "{2A500187-90FF-4831-B701-B85F73F20265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F296F0A2-9352-4107-AAF5-C26C7F293828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F296F0A2-9352-4107-AAF5-C26C7F293828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F296F0A2-9352-4107-AAF5-C26C7F293828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A500187-90FF-4831-B701-B85F73F20265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A500187-90FF-4831-B701-B85F73F20265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A500187-90FF-4831-B701-B85F73F20265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A500187-90FF-4831-B701-B85F73F20265}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
