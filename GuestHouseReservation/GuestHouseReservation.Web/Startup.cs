@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GuestHouseReservation.Web.Models;
 using GuestHouseReservation.Data;
 using GuestHouseReservation.Data.Models;
+using GuestHouseReservation.Services;
+using GuestHouseReservation.Services.Implementations;
 
 namespace GuestHouseReservation.Web
 {
@@ -31,6 +33,8 @@ namespace GuestHouseReservation.Web
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<GHReservationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IAdminService, AdminService>();
 
             services.AddMvc();
         }

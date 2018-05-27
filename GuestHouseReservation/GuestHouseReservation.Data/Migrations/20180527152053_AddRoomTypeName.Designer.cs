@@ -11,9 +11,10 @@ using System;
 namespace GuestHouseReservation.Data.Migrations
 {
     [DbContext(typeof(GHReservationDbContext))]
-    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180527152053_AddRoomTypeName")]
+    partial class AddRoomTypeName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

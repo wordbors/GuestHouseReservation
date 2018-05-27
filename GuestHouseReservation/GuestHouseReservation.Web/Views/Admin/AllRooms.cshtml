@@ -1,0 +1,61 @@
+﻿@model AllRoomsViewModel
+
+
+@{
+    ViewData["Title"] = "Всички стай";
+}
+
+<h2>Всички стай</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Номер
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Тип стая
+            </th>
+            <th>
+                Капацитет
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AllRooms)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Редактирай</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Детайли</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Изтрий</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

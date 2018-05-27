@@ -9,6 +9,9 @@ namespace GuestHouseReservation.Data.Models
 
         public string Discription { get; set; }
 
+        [MaxLength(20)]
+        public string Name { get; set; }
+
         [Required]
         public int Capacity { get; set; }
 
