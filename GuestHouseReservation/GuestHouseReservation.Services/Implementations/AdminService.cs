@@ -62,12 +62,10 @@ namespace GuestHouseReservation.Services.Implementations
         public void EditRoomType(int id,string discription, string name, int capacity)
         {
             var exsistingRoomType = db.RoomTypes.Find(id);
-
             if (exsistingRoomType == null)
             {
                 return;
             }
-
             exsistingRoomType.Discription = discription;
             exsistingRoomType.Name = name;
             exsistingRoomType.Capacity = capacity;
@@ -86,6 +84,46 @@ namespace GuestHouseReservation.Services.Implementations
         public bool ExistsRoomType(int id)
         {
             return db.RoomTypes.Any(t => t.ID == id);
+        }
+
+        public void CreateRoom(string number, decimal price, int typeId)
+        {
+            var room = new Room
+            {
+                Number = number,
+                Price = price,
+                TypeID = typeId
+            };
+
+            db.Add(room);
+            db.SaveChanges();
+        }
+
+        public Room RoomByid(int id)
+        {
+            return db
+                .Rooms
+                .Where(r => r.ID == id)
+                .FirstOrDefault();
+        }
+
+        public bool ExistsRoom(int id)
+        {
+            return db.RoomTypes.Any(r => r.ID == id);
+        }
+
+        public void EditRoom(int id, string number, decimal price, int typeId)
+        {
+            var ExsistingRoom = db.Rooms.Find(id);
+            if (ExsistingRoom == null)
+            {
+
+            }
+
+            ExsistingRoom.Number = number;
+            ExsistingRoom.Price = price;
+            ExsistingRoom.TypeID = typeId;
+            db.SaveChanges();
         }
     }
 }

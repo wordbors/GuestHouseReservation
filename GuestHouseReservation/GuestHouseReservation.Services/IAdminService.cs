@@ -21,5 +21,13 @@ namespace GuestHouseReservation.Services
 
         bool ExistsRoomType(int id);
 
+        void CreateRoom(string number, decimal price, int typeId);
+
+        Room RoomByid(int id);
+
+        bool ExistsRoom(int id);
+
+        void EditRoom(int id, string number, decimal price, int typeId);
+
     }
 }

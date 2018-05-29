@@ -7,6 +7,7 @@ using GuestHouseReservation.Services;
 using GuestHouseReservation.Services.Models;
 using GuestHouseReservation.Web.Models.Admin;
 using GuestHouseReservation.Data.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GuestHouseReservation.Web.Controllers
 {
@@ -92,5 +93,73 @@ namespace GuestHouseReservation.Web.Controllers
 
             return RedirectToAction(nameof(AllRoomTypes));
         }
+
+        public IActionResult CreateRoom()
+        {
+            return View(new CrudRoomViewModel
+            {
+                RoomTypes = GetRoomTypes()
+            });
+        }
+
+        [HttpPost]
+        public IActionResult CreateRoom(CrudRoomViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
+
+            return RedirectToAction(nameof(AllRooms));
+        }
+
+        public IActionResult EditRoom(int id)
+        {
+            var room = AdminService.RoomByid(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return View(new CrudRoomViewModel
+            {
+                ID = room.ID,
+                Number = room.Number,
+                Price = room.Price,
+                TypeID = room.TypeID,
+                RoomTypes = GetRoomTypes()
+            });
+        }
+
+        [HttpPost]
+        public IActionResult EditRoom(CrudRoomViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            bool roomExists = AdminService.ExistsRoom(model.ID);
+            if (!roomExists)
+            {
+                return NotFound();
+            }
+            AdminService.EditRoom(model.ID, model.Number, model.Price, model.TypeID);
+
+            return RedirectToAction(nameof(AllRooms));
+        }
+
+        private IEnumerable<SelectListItem> GetRoomTypes()
+        {
+            var roomTypes = AdminService.GetRoomTypes()
+            .Select(c => new SelectListItem
+            {
+                Value = c.ID.ToString(),
+                Text = c.Name
+            });
+
+            return roomTypes;
+        }
+
+
     }
 }
