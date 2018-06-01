@@ -1,0 +1,67 @@
+﻿
+@model AvailableRoomsViewModel
+
+@{
+    ViewData["Title"] = "AvailableRooms";
+}
+
+<h2>Свободни стай</h2>
+<div class="form-group">
+    <text class="container">Дата на настаняване @(Model.DateIN.ToString("dd/M/yyyy")) </text>
+    <text class="container">Дата на напускане @(Model.DateOUT.ToString("dd/M/yyyy")) </text>
+</div>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Номер
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Капацитет
+            </th>
+            <th>
+                Тип
+            </th>
+            <th>
+                Описание
+            </th>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model.AvailableRooms)
+        {
+        <tr>
+            <td>
+                @room.ID
+            </td>
+            <td>
+                @room.Number
+            </td>
+            <td>
+                @room.Price
+            </td>
+            <td>
+                @room.Capacity
+            </td>
+            <td>
+                @room.TypeName
+            </td>
+            <td>
+                @room.Discription
+            </td>
+            <td>
+                @Html.ActionLink("Запази", "GuestInfo", new { id = room.ID, dateIN = Model.DateIN, dateOUT = Model.DateOUT })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+

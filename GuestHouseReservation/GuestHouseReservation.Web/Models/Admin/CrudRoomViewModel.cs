@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using GuestHouseReservation.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GuestHouseReservation.Web.Models.Admin
@@ -22,5 +23,11 @@ namespace GuestHouseReservation.Web.Models.Admin
         public int TypeID { get; set; }
 
         public IEnumerable<SelectListItem> RoomTypes { get; set; }
+
+        [Required]
+        [Display(Name = "Upload")]
+        public IFormFile UploadFile { get; set; }
+
+        public IEnumerable<string> Photos { get; set; }
     }
 }

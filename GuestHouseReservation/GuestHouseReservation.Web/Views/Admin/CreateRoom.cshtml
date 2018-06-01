@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateRoom">
+        <form asp-action="CreateRoom"  enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Number" class="control-label"></label>
@@ -26,6 +26,11 @@
                 <label asp-for="TypeID"></label>
                 <select asp-for="TypeID" asp-items="Model.RoomTypes" class="form-control"></select>
                 <span asp-validation-for="TypeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UploadFile" class="control-label"></label>
+                <input asp-for="UploadFile" type="file" class="form-control" style="height:auto" />
+                <span asp-validation-for="UploadFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

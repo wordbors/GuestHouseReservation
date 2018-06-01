@@ -35,6 +35,11 @@
     </div>
 </div>
 
+@foreach (var photo in Model.Photos)
+{
+    <img src="~/images/Rooms/@Model.ID/@photo" />
+}
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

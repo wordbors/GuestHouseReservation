@@ -36,6 +36,12 @@ namespace GuestHouseReservation.Web
 
             services.AddTransient<IAdminService, AdminService>();
 
+            services.AddTransient<IReservationService, ReservationService>();
+
+            services.AddMvc().AddSessionStateTempDataProvider();
+
+            services.AddSession();
+
             services.AddMvc();
         }
 
@@ -56,6 +62,8 @@ namespace GuestHouseReservation.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

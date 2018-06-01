@@ -86,7 +86,7 @@ namespace GuestHouseReservation.Services.Implementations
             return db.RoomTypes.Any(t => t.ID == id);
         }
 
-        public void CreateRoom(string number, decimal price, int typeId)
+        public Room CreateRoom(string number, decimal price, int typeId)
         {
             var room = new Room
             {
@@ -97,6 +97,8 @@ namespace GuestHouseReservation.Services.Implementations
 
             db.Add(room);
             db.SaveChanges();
+
+            return room;
         }
 
         public Room RoomByid(int id)

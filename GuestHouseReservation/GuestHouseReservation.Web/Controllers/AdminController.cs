@@ -8,6 +8,7 @@ using GuestHouseReservation.Services.Models;
 using GuestHouseReservation.Web.Models.Admin;
 using GuestHouseReservation.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 namespace GuestHouseReservation.Web.Controllers
 {
@@ -103,13 +104,26 @@ namespace GuestHouseReservation.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoom(CrudRoomViewModel model)
+        public async Task<IActionResult> CreateRoom(CrudRoomViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
+
+            var room = AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
+
+            Directory.CreateDirectory(@"wwwroot\images\Rooms\" + room.ID);
+
+            
+            var ext = Path.GetExtension(model.UploadFile.FileName);
+            var guid = Guid.NewGuid().ToString();
+            var filePath = String.Format(@"wwwroot\images\Rooms\{0}\{1}{2}", room.ID, guid, ext);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.UploadFile.CopyToAsync(fileStream);
+            }
+
 
             return RedirectToAction(nameof(AllRooms));
         }
@@ -121,13 +135,17 @@ namespace GuestHouseReservation.Web.Controllers
             {
                 return NotFound();
             }
+
+            var allPics = Directory.EnumerateFiles(@"wwwroot\images\Rooms\" + room.ID).Select(f => Path.GetFileName(f));
+
             return View(new CrudRoomViewModel
             {
                 ID = room.ID,
                 Number = room.Number,
                 Price = room.Price,
                 TypeID = room.TypeID,
-                RoomTypes = GetRoomTypes()
+                RoomTypes = GetRoomTypes(),
+                Photos = allPics
             });
         }
 
