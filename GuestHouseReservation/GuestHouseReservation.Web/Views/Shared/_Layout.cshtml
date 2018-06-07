@@ -15,44 +15,88 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <link href="~/css/style.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="top-header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">GuestHouseReservation.Web</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Reservation" asp-action="ChoosingDates">Резервации</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Админ<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Admin" asp-action="AllRooms">Стаи</a></li>
-                            <li><a asp-area="" asp-controller="Admin" asp-action="AllRoomTypes">Тип стаи</a></li>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="social-grid">
+                        <ul class="list-unstyled text-right">
+                            <li><a><i class="fa fa-facebook"></i></a></li>
+                            <li><a><i class="fa fa-twitter"></i></a></li>
+                            <li><a><i class="fa fa-linkedin"></i></a></li>
+                            <li><a><i class="fa fa-instagram"></i></a></li>
                         </ul>
-                    </li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+    <header class="header-container">
+        <div class="container">
+            <div class="top-row">
+                <div class="row">
+                    <div class="col-md-2 col-sm-6 col-xs-6">
+                        <div id="logo">
+                            <!--<a href="index.html"><img src="images/logo.png" alt="logo"></a>-->
+                            <a href="index.html"><span>vacay</span>home</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 visible-sm">
+                        <div class="text-right"><button type="button" class="book-now-btn" asp-controller="Reservation" asp-action="ChoosingDates">Резервирай</button></div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 remove-padd">
+                        <nav class="navbar navbar-default">
+                            <div class="navbar-header page-scroll">
+                                <button data-target=".navbar-ex1-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
+                                <ul class="list-unstyled nav1 cl-effect-10">
+                                    <li><a data-hover="Начало" asp-controller="Home" asp-action="Index"><span>Начало</span></a></li>
+                                    <li><a data-hover="Контакти" asp-controller="Home" asp-action="Contact"><span>Контакти</span></a></li>
+                                    <li><a data-hover="Галерия" asp-controller="Home" asp-action="About"><span>Галерия</span></a></li>
+                                    <li><a data-hover="Стаи" asp-controller="Admin" asp-action="AllRooms"><span>Стаи</span></a></li>
+                                    <li><a data-hover="Тип Стаи" asp-controller="Admin" asp-action="AllRoomTypes"><span>Тип Стаи</span></a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-2  col-sm-4 col-xs-12 hidden-sm">
+                        <div class="text-right">
+                            <button type="button" class="book-now-btn">
+                                <a asp-controller="Reservation" asp-action="ChoosingDates">Резервирай</a>
+                            </button>
+                            @await Html.PartialAsync("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - GuestHouseReservation.Web</p>
-        </footer>
+        
     </div>
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2018 - GuestHouseReservation.Web</p>
+        </div>
 
+    </footer>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

@@ -1,17 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Contact";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+﻿<section class="contact-block">
+    <div class="container">
+        <div class="col-md-6 contact-left-block">
+            <h3><span>Contact </span>Us</h3>
+            <p class="text-left">Nulla pharetra eleifend tellus in molestie. In vel neque sit amet urna gravida blandit nec id massa. Phasellus eu aliquet augue. Quisque fringilla urna quam.</p>
+            <p class="text-right">701 Old York Drive Richmond USA. <i class="fa fa-map-marker fa-lg"></i></p>
+            <p class="text-right"><a href="tel:+1-202-555-0100"> +1-202-555-0100 <i class="fa fa-phone fa-lg"></i></a></p>
+            <p class="text-right"><a href="mailto:demo@info.com"> demo@info.com <i class="fa fa-envelope"></i></a></p>
+        </div>
+        <div class="col-md-6 contact-form">
+            <h3>Send a <span>Message</span></h3>
+            <form action="#" method="post">
+                <input type="text" class="form-control" name="Name" placeholder="Name" required="">
+                <input type="email" class="form-control" name="Email" placeholder="Email" required="">
+                <textarea class="form-control" name="Message" placeholder="Message Here...." required=""></textarea>
+                <input type="submit" class="submit-btn" value="Submit">
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<!---map--->
+<section class="offspace-70">
+    <div class="map">
+        <div class="container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4935.003963740683!2d23.349562403721915!3d42.65349472183838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424b4bfb069%3A0x3885fc613da55422!2z0JzRg9C70YLQuNGE0YPQvdC60YbQuNC-0L3QsNC70LXQvSDRgNCw0LfQstC70LXQutCw0YLQtdC70LXQvSDRhtC10L3RgtGK0YAgSk9ZIFNUQVRJT04!5e0!3m2!1sbg!2sbg!4v1527854426847" frameborder="0" style="border:0; width: 100%; height: 400px" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
