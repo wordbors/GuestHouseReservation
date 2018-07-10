@@ -10,5 +10,13 @@ namespace GuestHouseReservation.Services
     public interface IReservationService
     {
         IEnumerable<AvailableRooms> AvailableRooms(BetweenDates dates);
+
+        int GetCountRooms();
+
+        AvailableRooms GetHouseInfo();
+
+        void Reservation(string userID,int roomID, DateTime dateIN, DateTime dateOUT);
+
+        List<int> GetRoomIDs();
     }
 }

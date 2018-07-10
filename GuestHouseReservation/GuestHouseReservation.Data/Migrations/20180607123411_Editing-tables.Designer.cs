@@ -11,54 +11,15 @@ using System;
 namespace GuestHouseReservation.Data.Migrations
 {
     [DbContext(typeof(GHReservationDbContext))]
-    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180607123411_Editing-tables")]
+    partial class Editingtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GuestHouseReservation.Data.Models.Extra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Extras");
-                });
-
-            modelBuilder.Entity("GuestHouseReservation.Data.Models.House", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(100);
-
-                    b.Property<int>("Capacity");
-
-                    b.Property<string>("Discription");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<decimal>("Price");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("House");
-                });
 
             modelBuilder.Entity("GuestHouseReservation.Data.Models.Reservation", b =>
                 {
@@ -117,7 +78,7 @@ namespace GuestHouseReservation.Data.Migrations
                     b.Property<string>("Discription");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50);
+                        .HasMaxLength(20);
 
                     b.Property<decimal>("Price");
 

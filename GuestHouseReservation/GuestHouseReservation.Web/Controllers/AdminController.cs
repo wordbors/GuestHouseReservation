@@ -111,18 +111,18 @@ namespace GuestHouseReservation.Web.Controllers
                 return View(model);
             }
 
-            var room = AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
-
-            Directory.CreateDirectory(@"wwwroot\images\Rooms\" + room.ID);
-
-            
-            var ext = Path.GetExtension(model.UploadFile.FileName);
-            var guid = Guid.NewGuid().ToString();
-            var filePath = String.Format(@"wwwroot\images\Rooms\{0}\{1}{2}", room.ID, guid, ext);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await model.UploadFile.CopyToAsync(fileStream);
-            }
+            //var room = AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
+            //
+            //Directory.CreateDirectory(@"wwwroot\images\Rooms\" + room.ID);
+            //
+            //
+            //var ext = Path.GetExtension(model.UploadFile.FileName);
+            //var guid = Guid.NewGuid().ToString();
+            //var filePath = String.Format(@"wwwroot\images\Rooms\{0}\{1}{2}", room.ID, guid, ext);
+            //using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    await model.UploadFile.CopyToAsync(fileStream);
+            //}
 
 
             return RedirectToAction(nameof(AllRooms));
@@ -136,16 +136,16 @@ namespace GuestHouseReservation.Web.Controllers
                 return NotFound();
             }
 
-            var allPics = Directory.EnumerateFiles(@"wwwroot\images\Rooms\" + room.ID).Select(f => Path.GetFileName(f));
+            //var allPics = Directory.EnumerateFiles(@"wwwroot\images\Rooms\" + room.ID).Select(f => Path.GetFileName(f));
 
             return View(new CrudRoomViewModel
             {
                 ID = room.ID,
                 Number = room.Number,
-                Price = room.Price,
+                //Price = room.Price,
                 TypeID = room.TypeID,
                 RoomTypes = GetRoomTypes(),
-                Photos = allPics
+                //Photos = allPics
             });
         }
 
@@ -161,9 +161,20 @@ namespace GuestHouseReservation.Web.Controllers
             {
                 return NotFound();
             }
-            AdminService.EditRoom(model.ID, model.Number, model.Price, model.TypeID);
+            AdminService.EditRoom(model.ID, model.Number, model.TypeID);
 
             return RedirectToAction(nameof(AllRooms));
+        }
+
+        public IActionResult DeleteRoom(int id)
+        {
+            return RedirectToAction(nameof(AllRooms));
+        }
+
+        public IActionResult ModalAction(int id)
+        {
+            ViewBag.id = id;
+            return PartialView("ModalDelete");
         }
 
         private IEnumerable<SelectListItem> GetRoomTypes()

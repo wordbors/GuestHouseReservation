@@ -15,14 +15,6 @@ namespace GuestHouseReservation.Web.Models.Reservation
         [Required]
         public string UserID { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string FName { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string LName { get; set; }
-
         public DateTime DateIN { get; set; }
         
         public DateTime DateOUT { get; set; }

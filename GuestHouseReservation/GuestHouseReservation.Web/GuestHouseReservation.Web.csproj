@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-GuestHouseReservation.Web-2AFE4B28-7C2A-4020-A8EF-4ACEB1B1392F</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\images\11193327_417505828410682_870924258547913197_n.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />

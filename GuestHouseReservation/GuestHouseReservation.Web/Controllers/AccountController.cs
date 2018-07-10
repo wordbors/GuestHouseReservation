@@ -222,7 +222,8 @@ namespace GuestHouseReservation.Web.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     FName = model.FName,
-                    LName = model.LName
+                    LName = model.LName,
+                    PhoneNumber = model.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

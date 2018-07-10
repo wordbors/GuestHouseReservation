@@ -21,6 +21,10 @@ namespace GuestHouseReservation.Data
 
         public DbSet<Reservation> Reservations { get; set; }
 
+        public DbSet<Extra> Extras { get; set; }
+
+        public DbSet<House> House { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

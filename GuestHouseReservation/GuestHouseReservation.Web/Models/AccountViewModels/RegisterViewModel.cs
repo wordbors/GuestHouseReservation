@@ -31,5 +31,9 @@ namespace GuestHouseReservation.Web.Models.AccountViewModels
         [Required]
         [MaxLength(50)]
         public string LName { get; set; }
+
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
     }
 }

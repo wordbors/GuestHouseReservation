@@ -11,9 +11,10 @@ using System;
 namespace GuestHouseReservation.Data.Migrations
 {
     [DbContext(typeof(GHReservationDbContext))]
-    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180607185520_delete-relationship")]
+    partial class deleterelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

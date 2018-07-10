@@ -16,18 +16,18 @@ namespace GuestHouseReservation.Web.Models.Admin
         [MaxLength(20)]
         public string Number { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
+        //[Required]
+        //public decimal Price { get; set; }
 
         [Required]
         public int TypeID { get; set; }
 
         public IEnumerable<SelectListItem> RoomTypes { get; set; }
 
-        [Required]
-        [Display(Name = "Upload")]
-        public IFormFile UploadFile { get; set; }
+        //[Required]
+        //[Display(Name = "Upload")]
+        //public IFormFile UploadFile { get; set; }
 
-        public IEnumerable<string> Photos { get; set; }
+        //public IEnumerable<string> Photos { get; set; }
     }
 }

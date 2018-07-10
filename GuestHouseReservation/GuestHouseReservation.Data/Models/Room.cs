@@ -10,8 +10,7 @@ namespace GuestHouseReservation.Data.Models
         [MaxLength(20)]
         public string Number { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
+        public int Status { get; set; }
 
         [Required]
         public int TypeID { get; set; }

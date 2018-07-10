@@ -23,5 +23,6 @@ namespace GuestHouseReservation.Data.Models
         [Column(TypeName = "Date")]
         public DateTime DateOUT { get; set; }
 
+        public int Status { get; set; }
     }
 }

@@ -1,11 +1,17 @@
-﻿@model SelectedDatesViewModel
+﻿
+@model SelectedDatesViewModel
 @{
     ViewData["Title"] = "Избор на дати";
 }
 
-<h2>Избор на дати</h2>
+
 <form method="post">
+
     <div class="col-lg-3">
+        <div style="padding-bottom:1em">
+            <label for="name">Моля изберете изберете желани дати за престой</label>
+        </div>
+
         <div class="form-group">
             <label for="name">Дата на настаняване</label>
             <input asp-for="DateIN" type="date" class="form-control">
@@ -17,7 +23,7 @@
             <span asp-validation-for="DateOUT" class="form-text text-danger"></span>
         </div>
         <div>
-            <input type="submit" value="Избери дати" class="btn btn-default" />
+            <input type="submit" value="Търси свободни стаи" class="btn btn-default" />
         </div>
     </div>
 

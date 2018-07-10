@@ -11,9 +11,10 @@ using System;
 namespace GuestHouseReservation.Data.Migrations
 {
     [DbContext(typeof(GHReservationDbContext))]
-    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180607132442_Add-house-extra-tables")]
+    partial class Addhouseextratables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,6 +49,8 @@ namespace GuestHouseReservation.Data.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<int>("ExtraID");
+
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
@@ -56,6 +59,8 @@ namespace GuestHouseReservation.Data.Migrations
                     b.Property<decimal>("Price");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ExtraID");
 
                     b.ToTable("House");
                 });
@@ -291,6 +296,14 @@ namespace GuestHouseReservation.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GuestHouseReservation.Data.Models.House", b =>
+                {
+                    b.HasOne("GuestHouseReservation.Data.Models.Extra", "Extra")
+                        .WithMany("Houses")
+                        .HasForeignKey("ExtraID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuestHouseReservation.Data.Models.Reservation", b =>

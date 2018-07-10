@@ -13,6 +13,8 @@ namespace GuestHouseReservation.Services
 
         IEnumerable<RoomType> GetRoomTypes();
 
+        IEnumerable<House> GetHouses();
+
         void CreateRoomType(string discription, string name, int capacity);
 
         void EditRoomType(int id,string discription, string name, int capacity);
@@ -27,7 +29,9 @@ namespace GuestHouseReservation.Services
 
         bool ExistsRoom(int id);
 
-        void EditRoom(int id, string number, decimal price, int typeId);
+        void EditRoom(int id, string number, int typeId);
+
+        void DeleteRoom(int id);
 
     }
 }

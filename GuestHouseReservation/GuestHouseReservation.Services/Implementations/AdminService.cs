@@ -26,7 +26,7 @@ namespace GuestHouseReservation.Services.Implementations
                 {
                     ID = c.ID,
                     Number = c.Number,
-                    Price = c.Price,
+                    Price = c.RoomType.Price,
                     TypeName = c.RoomType.Name,
                     Capacity = c.RoomType.Capacity
                 }).ToList();
@@ -42,6 +42,7 @@ namespace GuestHouseReservation.Services.Implementations
                     ID = t.ID,
                     Name = t.Name,
                     Capacity = t.Capacity,
+                    Price = t.Price,
                     Discription = t.Discription
                 });
         }
@@ -91,7 +92,7 @@ namespace GuestHouseReservation.Services.Implementations
             var room = new Room
             {
                 Number = number,
-                Price = price,
+                //Price = price,
                 TypeID = typeId
             };
 
@@ -111,21 +112,36 @@ namespace GuestHouseReservation.Services.Implementations
 
         public bool ExistsRoom(int id)
         {
-            return db.RoomTypes.Any(r => r.ID == id);
+            return db.Rooms.Any(r => r.ID == id);
         }
 
-        public void EditRoom(int id, string number, decimal price, int typeId)
+        public void EditRoom(int id, string number, int typeId)
         {
             var ExsistingRoom = db.Rooms.Find(id);
             if (ExsistingRoom == null)
             {
-
+                return;
             }
 
             ExsistingRoom.Number = number;
-            ExsistingRoom.Price = price;
             ExsistingRoom.TypeID = typeId;
             db.SaveChanges();
+        }
+
+        public void DeleteRoom(int id)
+        {
+            var room = db.Rooms.Find(id);
+            if (room == null)
+            {
+                return;
+            }
+            db.Rooms.Remove(room);
+            db.SaveChanges();
+        }
+
+        public IEnumerable<House> GetHouses()
+        {
+            throw new NotImplementedException();
         }
     }
 }

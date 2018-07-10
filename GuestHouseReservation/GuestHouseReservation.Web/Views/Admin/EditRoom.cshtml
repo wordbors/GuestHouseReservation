@@ -18,11 +18,7 @@
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="TypeID"></label>
                 <select asp-for="TypeID" asp-items="Model.RoomTypes" class="form-control"></select>
@@ -35,10 +31,10 @@
     </div>
 </div>
 
-@foreach (var photo in Model.Photos)
+@*@foreach (var photo in Model.Photos)
 {
     <img src="~/images/Rooms/@Model.ID/@photo" />
-}
+}*@
 
 <div>
     <a asp-action="Index">Back to List</a>
