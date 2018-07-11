@@ -47,6 +47,34 @@ namespace GuestHouseReservation.Services.Implementations
                 });
         }
 
+        public House GetHouse()
+        {
+            var House = db.House.AsQueryable().FirstOrDefault();
+
+            return new House
+            {
+                ID = House.ID,
+                Address = House.Address,
+                Capacity = House.Capacity,
+                Discription = House.Discription,
+                Email = House.Email,
+                Name = House.Name,
+                PhoneNumber = House.PhoneNumber,
+                Price = House.Price
+            };
+        }
+
+        public IEnumerable<Extra> GetExtras()
+        {
+            var Extras = db.Extras.AsQueryable();
+            return Extras
+                .Select(e => new Extra
+                {
+                    Id = e.Id,
+                    Name = e.Name
+                });
+        }
+
         public void CreateRoomType(string discription, string name, int capacity)
         {
             var roomType = new RoomType
@@ -139,9 +167,81 @@ namespace GuestHouseReservation.Services.Implementations
             db.SaveChanges();
         }
 
-        public IEnumerable<House> GetHouses()
+        public void EditHouse(House house)
         {
-            throw new NotImplementedException();
+            var ExsistingHouse = db.House.Find(house.ID);
+            if (ExsistingHouse == null)
+            {
+                return;
+            }
+            ExsistingHouse = house;
+            db.SaveChanges();
+        }
+
+        public void EditExtra(int id, string name)
+        {
+            var ExsistingExtra = db.Extras.Find(id);
+            if (ExsistingExtra == null)
+            {
+                return;
+            }
+            ExsistingExtra.Id = id;
+            ExsistingExtra.Name = name;
+            db.SaveChanges();
+        }
+
+        public void CreateExtra(int id, string name)
+        {
+            var extra = new Extra { Id = id, Name = name };
+            db.Add(extra);
+            db.SaveChanges();
+        }
+
+        public void DeleteExtra(int id)
+        {
+            var extra = db.Extras.Find(id);
+            if (extra == null)
+            {
+                return;
+            }
+            db.Extras.Remove(extra);
+            db.SaveChanges();
+        }
+
+        public IEnumerable<ReservationsMade> GetReservationsMades(BetweenDates dates)
+        {
+            var QueryReservation = db.Reservations.AsQueryable();
+
+            var Reservation = QueryReservation
+                .Where(res => (dates.DateIN >= res.DateIN && dates.DateIN <= res.DateOUT)
+                || (dates.DateOUT >= res.DateIN && dates.DateOUT <= res.DateOUT)
+                || (res.DateIN >= dates.DateIN && res.DateOUT <= dates.DateOUT));
+
+            return Reservation
+                .Select(c => new ReservationsMade
+                {
+                    ReservationID = c.ID,
+                    DateIN = c.DateIN,
+                    DateOUT = c.DateOUT,
+                    RoomNomer = c.Room.Number,
+                    RoomType = c.Room.RoomType.Name,
+                    UserName = c.User.FName + " " + c.User.LName,
+                    PhoneNumber = c.User.PhoneNumber,
+                    Status = c.Status
+                });
+
+        }
+
+        public void SetStatusToReservation(int ReservationID, int status)
+        {
+            var reservation = db.Reservations.Find(ReservationID);
+            if (reservation == null)
+            {
+                return;
+            }
+            reservation.Status = status;
+            db.SaveChanges();
+
         }
     }
 }

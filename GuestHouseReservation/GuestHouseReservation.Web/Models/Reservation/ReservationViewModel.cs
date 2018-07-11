@@ -12,7 +12,6 @@ namespace GuestHouseReservation.Web.Models.Reservation
         [Required]
         public int RoomID { get; set; }
 
-        [Required]
         public string UserID { get; set; }
 
         public DateTime DateIN { get; set; }

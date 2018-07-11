@@ -15,8 +15,12 @@ namespace GuestHouseReservation.Services
 
         AvailableRooms GetHouseInfo();
 
-        void Reservation(string userID,int roomID, DateTime dateIN, DateTime dateOUT);
+        void Reservation(string userID,int roomID, DateTime dateIN, DateTime dateOUT, decimal price);
 
         List<int> GetRoomIDs();
+
+        decimal GetRoomPrice(int roomID);
+
+        void editUser(string userID, string phoneNumber, string fName, string lName);
     }
 }

@@ -9,6 +9,7 @@ using GuestHouseReservation.Web.Models.Admin;
 using GuestHouseReservation.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
+using GuestHouseReservation.Web.Models.Reservation;
 
 namespace GuestHouseReservation.Web.Controllers
 {
@@ -104,7 +105,7 @@ namespace GuestHouseReservation.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRoom(CrudRoomViewModel model)
+        public IActionResult CreateRoom(CrudRoomViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -171,6 +172,61 @@ namespace GuestHouseReservation.Web.Controllers
             return RedirectToAction(nameof(AllRooms));
         }
 
+        public IActionResult AllHouseAndExtras()
+        {
+            var house = AdminService.GetHouse();
+            var extras = AdminService.GetExtras();
+
+            return View(new AllExtrasViewModel
+            {
+                AllExtras = extras,
+                House = house
+            });
+        }
+
+        public IActionResult MadeReservations(int id, int param)
+        {
+            if (param > 0)
+            {
+                AdminService.SetStatusToReservation(id, param);
+            }
+            var dates = new BetweenDates
+            {
+                DateIN = DateTime.Today,
+                DateOUT = DateTime.Today.AddDays(10)
+            };
+
+            var reservations = AdminService.GetReservationsMades(dates);
+
+            return View(new ReservationsMadeViewModel
+            {
+                DateIN = dates.DateIN,
+                DateOUT = dates.DateOUT,
+                ReservationsMades = reservations
+            });
+
+        }
+
+        [HttpPost]
+        public IActionResult MadeReservations(ReservationsMadeViewModel model)
+        {
+            var dates = new BetweenDates
+            {
+                DateIN = model.DateIN,
+                DateOUT = model.DateOUT
+            };
+
+            var reservations = AdminService.GetReservationsMades(dates);
+
+            return View(new ReservationsMadeViewModel
+            {
+                DateIN = dates.DateIN,
+                DateOUT = dates.DateOUT,
+                ReservationsMades = reservations
+            });
+
+        }
+
         public IActionResult ModalAction(int id)
         {
             ViewBag.id = id;
@@ -188,7 +244,6 @@ namespace GuestHouseReservation.Web.Controllers
 
             return roomTypes;
         }
-
 
     }
 }

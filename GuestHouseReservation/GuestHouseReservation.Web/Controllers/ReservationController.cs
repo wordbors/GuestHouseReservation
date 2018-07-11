@@ -18,13 +18,14 @@ namespace GuestHouseReservation.Web.Controllers
     {
         private readonly IReservationService ReservationService;
         private readonly UserManager<User> UserManager;
+        private readonly SignInManager<User> SignInManager;
 
 
-        public ReservationController(IReservationService reservationService, UserManager<User> userManager)
+        public ReservationController(IReservationService reservationService, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             ReservationService = reservationService;
             UserManager = userManager;
-
+            SignInManager = signInManager;
         }
 
         public IActionResult ChoosingDates()
@@ -52,6 +53,8 @@ namespace GuestHouseReservation.Web.Controllers
 
             var availableRooms = ReservationService.AvailableRooms(betweenDates).ToList();
 
+            decimal countDays = (decimal)(dateOUT - dateIN).TotalDays;
+
             if (ReservationService.GetCountRooms() == availableRooms.Count)
             {
                 var house = ReservationService.GetHouseInfo();
@@ -60,9 +63,10 @@ namespace GuestHouseReservation.Web.Controllers
                 {
                     ID = house.ID,
                     Number = house.Number,
-                    Price = house.Price,
+                    Price = house.Price * countDays,
                     Discription = house.Discription,
-                    TypeName = house.TypeName
+                    TypeName = house.TypeName,
+                    Capacity = house.Capacity
                 });
             }
 
@@ -109,27 +113,57 @@ namespace GuestHouseReservation.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult GuestInfo(ReservationViewModel model)
+        public async Task<IActionResult> GuestInfo(ReservationViewModel model)
         {
-            var hause = ReservationService.GetHouseInfo();
+            string UserID = null;
+            decimal countDays = (decimal)(model.DateOUT - model.DateIN).TotalDays;
 
-            if (model.RoomID == hause.ID)
+            if (User.Identity.IsAuthenticated)
+            {
+                ReservationService.editUser(model.UserID, model.PhoneNumber, model.FName, model.LName);
+                UserID = model.UserID;
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var user = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FName = model.FName,
+                    LName = model.LName,
+                    PhoneNumber = model.PhoneNumber
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false);
+                }
+                UserID = user.Id;
+            }
+
+      /////////////// reservation 
+            var house = ReservationService.GetHouseInfo();
+
+            if (model.RoomID == house.ID)
             {
                 var roomIDs = ReservationService.GetRoomIDs();
+                var roomPrice = (house.Price * countDays) / roomIDs.Count();
                 foreach (var item in roomIDs)
                 {
-                    ReservationService.Reservation(model.UserID, item, model.DateIN, model.DateOUT);
+                    ReservationService.Reservation(UserID, item, model.DateIN, model.DateOUT,roomPrice);
                 }
             }
             else
             {
-                ReservationService.Reservation(model.UserID, model.RoomID, model.DateIN, model.DateOUT);
+                var roomPrice = ReservationService.GetRoomPrice(model.RoomID);
+                ReservationService.Reservation(UserID, model.RoomID, model.DateIN, model.DateOUT, (roomPrice*countDays));
             }
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
-
-
     }
 }

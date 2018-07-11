@@ -11,9 +11,10 @@ using System;
 namespace GuestHouseReservation.Data.Migrations
 {
     [DbContext(typeof(GHReservationDbContext))]
-    partial class GuestHouseReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180710084008_Add_column_price")]
+    partial class Add_column_price
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

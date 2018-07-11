@@ -24,5 +24,8 @@ namespace GuestHouseReservation.Data.Models
         public DateTime DateOUT { get; set; }
 
         public int Status { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
     }
 }

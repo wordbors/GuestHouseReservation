@@ -19,7 +19,7 @@ namespace GuestHouseReservation.Services.Implementations
 
         public IEnumerable<AvailableRooms> AvailableRooms(BetweenDates dates)
         {
-            var queryReservaton = db.Reservations.AsQueryable();
+            var queryReservaton = db.Reservations.AsQueryable().Where(c=>c.Status != 2);
 
             var queryRooms = db.Rooms.AsQueryable();
 
@@ -41,6 +41,20 @@ namespace GuestHouseReservation.Services.Implementations
                     TypeName = c.RoomType.Name,
                     Discription = c.RoomType.Discription
                 });
+        }
+
+        public void editUser(string userID, string phoneNumber, string fName, string lName)
+        {
+            var exsistingUser = db.Users.Find(userID);
+            if (exsistingUser == null)
+            {
+                return;
+            }
+            exsistingUser.PhoneNumber = phoneNumber;
+            exsistingUser.FName = fName;
+            exsistingUser.LName = lName;
+
+            db.SaveChanges();
         }
 
         public int GetCountRooms()
@@ -69,14 +83,22 @@ namespace GuestHouseReservation.Services.Implementations
             return db.Rooms.Select(c => c.ID).ToList();
         }
 
-        public void Reservation(string userID, int roomID, DateTime dateIN, DateTime dateOUT)
+        public decimal GetRoomPrice(int roomID)
+        {
+            var RoomPrice = db.Rooms.Where(c => c.ID == roomID).Select(c => c.RoomType.Price).FirstOrDefault();
+
+            return RoomPrice;
+        }
+
+        public void Reservation(string userID, int roomID, DateTime dateIN, DateTime dateOUT, decimal price)
         {
             var reservation = new Reservation
             {
                 UserID = userID,
                 RoomID = roomID,
                 DateIN = dateIN,
-                DateOUT = dateOUT
+                DateOUT = dateOUT,
+                Price = price
             };
 
             db.Add(reservation);
