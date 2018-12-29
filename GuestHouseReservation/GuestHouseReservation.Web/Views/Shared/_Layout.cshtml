@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewData["Title"] - GuestHouseReservation.Web</title>
+    <title>@ViewData["Title"] - Къща за гости</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -22,18 +22,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    @inject SignInManager<User> SignInManager
+    @inject UserManager<User> UserManager
+
     <div class="top-header">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="social-grid">
                         <ul class="list-unstyled text-right">
-                            <li><a><i class="fa fa-facebook"></i></a></li>
-                            <li><a><i class="fa fa-twitter"></i></a></li>
-                            <li><a><i class="fa fa-linkedin"></i></a></li>
-                            <li><a><i class="fa fa-instagram"></i></a></li>
+                            @await Html.PartialAsync("_LoginPartial")
                         </ul>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="col-md-2 col-sm-6 col-xs-6">
                         <div id="logo">
                             <!--<a href="index.html"><img src="images/logo.png" alt="logo"></a>-->
-                            <a href="index.html"><span>vacay</span>home</a>
+                            <a href="index.html"><span>Две</span>реки</a>
                         </div>
                     </div>
                     <div class="col-sm-6 visible-sm">
@@ -68,10 +68,13 @@
                                     <li><a data-hover="Начало" asp-controller="Home" asp-action="Index"><span>Начало</span></a></li>
                                     <li><a data-hover="Контакти" asp-controller="Home" asp-action="Contact"><span>Контакти</span></a></li>
                                     <li><a data-hover="Галерия" asp-controller="Home" asp-action="About"><span>Галерия</span></a></li>
-                                    <li><a data-hover="Стаи" asp-controller="Admin" asp-action="AllRooms"><span>Стаи</span></a></li>
-                                    <li><a data-hover="Тип Стаи" asp-controller="Admin" asp-action="AllRoomTypes"><span>Тип Стаи</span></a></li>
-                                    <li><a data-hover="Къща " asp-controller="Admin" asp-action="AllHouseAndExtras"><span>Къща</span></a></li>
-                                    <li><a data-hover="Резервации " asp-controller="Admin" asp-action="MadeReservations"><span>Резервации</span></a></li>
+                                    @if (User.IsInRole("Administrator"))
+                                    {
+                                        <li><a data-hover="Стаи" asp-controller="Admin" asp-action="AllRooms"><span>Стаи</span></a></li>
+                                        <li><a data-hover="Тип Стаи" asp-controller="Admin" asp-action="AllRoomTypes"><span>Тип Стаи</span></a></li>
+                                        <li><a data-hover="Къща " asp-controller="Admin" asp-action="AllHouseAndExtras"><span>Къща</span></a></li>
+                                        <li><a data-hover="Резервации " asp-controller="Admin" asp-action="MadeReservations"><span>Резервации</span></a></li>
+                                    }
                                 </ul>
                             </div>
                         </nav>
@@ -82,7 +85,7 @@
                             <button type="button" class="book-now-btn">
                                 <a asp-controller="Reservation" asp-action="ChoosingDates">Резервирай</a>
                             </button>
-                            @await Html.PartialAsync("_LoginPartial")
+
                         </div>
                     </div>
                 </div>
@@ -95,11 +98,11 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        
+
     </div>
     <footer>
         <div class="copyright">
-            <p>&copy; 2018 - GuestHouseReservation.Web</p>
+            <p>&copy; 2018 - Милен Йоргов</p>
         </div>
 
     </footer>
@@ -107,6 +110,8 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/datepicker.js"></script>
+        <script src="~/js/app.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

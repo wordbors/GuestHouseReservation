@@ -13,6 +13,7 @@ using GuestHouseReservation.Data;
 using GuestHouseReservation.Data.Models;
 using GuestHouseReservation.Services;
 using GuestHouseReservation.Services.Implementations;
+using GuestHouseReservation.Web.Extensions;
 
 namespace GuestHouseReservation.Web
 {
@@ -54,6 +55,8 @@ namespace GuestHouseReservation.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

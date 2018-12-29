@@ -4,42 +4,45 @@
     ViewData["Title"] = "View";
 }
 
-<h2>View</h2>
 
-<h4>RoomType</h4>
+
+<hr />
+<h4>Добавяне на тип стая</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form asp-action="CreateRoomType">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="Discription" class="control-label"></label>
-                <input asp-for="Discription" class="form-control" />
-                <span asp-validation-for="Discription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label>Име</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Capacity" class="control-label"></label>
+                <label>Капацитет</label>
                 <input asp-for="Capacity" class="form-control" />
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UploadFile" class="control-label"></label>
-                <input asp-for="UploadFile" type="file" class="form-control" style="height:auto" />
-                <span asp-validation-for="UploadFile" class="text-danger"></span>
+                <label>Цена</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label>Описание</label>
+                <input asp-for="Discription" class="form-control" />
+                <span asp-validation-for="Discription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div></div>
+                <button type="submit" class="btn btn-success btn-md pull-right ">Запис</button>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="AllRoomTypes">Назад</a>
 </div>
 

@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace GuestHouseReservation.Web.Models.ManageViewModels
 {
-    public class IndexViewModel
+    public class IndexViewModel 
     {
         public string Username { get; set; }
 
@@ -21,5 +22,13 @@ namespace GuestHouseReservation.Web.Models.ManageViewModels
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string FName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LName { get; set; }
     }
 }

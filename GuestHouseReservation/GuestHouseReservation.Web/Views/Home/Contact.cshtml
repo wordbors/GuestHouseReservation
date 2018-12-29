@@ -1,11 +1,12 @@
-﻿<section class="contact-block">
+﻿@model HomeViewModel
+
+<section class="contact-block">
     <div class="container">
         <div class="col-md-6 contact-left-block">
             <h3><span>За </span>контакти</h3>
-            <p class="text-left">Къща за гости “Две реки“ е новопостроена в с. Мадара, Шуменска Област и се намира в подножието на историко- археологически комплекс "Мадарски конник". </p>
-            <p class="text-right">Вила “Don Maro” 5720, с. Рибарица Ул. „Филип Тотю“ 1 <i class="fa fa-map-marker fa-lg"></i></p>
-            <p class="text-right"><a href="tel:+1-202-555-0100"> +359887650952 <i class="fa fa-phone fa-lg"></i></a></p>
-            <p class="text-right"><a href="mailto:demo@info.com"> vila.dvereki@gmail.com <i class="fa fa-envelope"></i></a></p>
+            <p class="text-right">@Model.House.Address <i class="fa fa-map-marker fa-lg"></i></p>
+            <p class="text-right"><a href="tel:+1-202-555-0100">@Model.House.PhoneNumber <i class="fa fa-phone fa-lg"></i></a></p>
+            <p class="text-right"><a href="mailto:demo@info.com"> @Model.House.Email<i class="fa fa-envelope"></i></a></p>
         </div>
         <div class="col-md-6 contact-form">
             <h3>Изпратете <span>съобщение</span></h3>
@@ -23,7 +24,7 @@
 <section class="offspace-70">
     <div class="map">
         <div class="container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4935.003963740683!2d23.349562403721915!3d42.65349472183838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424b4bfb069%3A0x3885fc613da55422!2z0JzRg9C70YLQuNGE0YPQvdC60YbQuNC-0L3QsNC70LXQvSDRgNCw0LfQstC70LXQutCw0YLQtdC70LXQvSDRhtC10L3RgtGK0YAgSk9ZIFNUQVRJT04!5e0!3m2!1sbg!2sbg!4v1527854426847" frameborder="0" style="border:0; width: 100%; height: 400px" allowfullscreen></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2926.997353298881!2d23.00165671547064!3d42.80954197915935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aabb0edce77ed5%3A0x582bd940b6e37722!2zODExIDIxLCAyMjIzINCT0YrQu9GK0LHQvtCy0YbQuA!5e0!3m2!1sbg!2sbg!4v1531370194059" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
     </div>
 </section>

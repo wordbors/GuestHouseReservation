@@ -1,98 +1,91 @@
 ﻿@model AllExtrasViewModel
 
+<hr />
+<h4>Информация за къщата.</h4>
+<hr />
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="House.ID" />
-            <div class="form-group"></div>
-            <div class="form-group">
-                <label asp-for="House.Name" class="control-label"></label>
-                <input asp-for="House.Name" class="form-control" />
-                <span asp-validation-for="House.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Email" class="control-label"></label>
-                <input asp-for="House.Email" class="form-control" />
-                <span asp-validation-for="House.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Name" class="control-label"></label>
-                <input asp-for="House.Name" class="form-control" />
-                <span asp-validation-for="House.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.PhoneNumber" class="control-label"></label>
-                <input asp-for="House.PhoneNumber" class="form-control" />
-                <span asp-validation-for="House.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Price" class="control-label"></label>
-                <input asp-for="House.Price" class="form-control" />
-                <span asp-validation-for="House.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Address" class="control-label"></label>
-                <input asp-for="House.Address" class="form-control" />
-                <span asp-validation-for="House.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Capacity" class="control-label"></label>
-                <input asp-for="House.Capacity" class="form-control" />
-                <span asp-validation-for="House.Capacity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="House.Discription" class="control-label"></label>
-                <input asp-for="House.Discription" class="form-control" />
-                <span asp-validation-for="House.Discription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="table-wrapper col-md-5">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Екстри</b></h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <a asp-action="CreateRoomType" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Добави</span></a>
-                    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="House.ID" />
+                <div class="form-group"></div>
+                <div class="form-group">
+                    <label>Име</label>
+                    <input asp-for="House.Name" class="form-control" />
+                    <span asp-validation-for="House.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Емайл</label>
+                    <input asp-for="House.Email" class="form-control" />
+                    <span asp-validation-for="House.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input asp-for="House.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="House.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Цена</label>
+                    <input asp-for="House.Price" class="form-control" />
+                    <span asp-validation-for="House.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Адрес</label>
+                    <input asp-for="House.Address" class="form-control" />
+                    <span asp-validation-for="House.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Капацитет</label>
+                    <input asp-for="House.Capacity" class="form-control" />
+                    <span asp-validation-for="House.Capacity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <input asp-for="House.Discription" class="form-control" />
+                    <span asp-validation-for="House.Discription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button asp-action="EditHouse" type="submit" class="btn btn-success btn-md pull-right ">Запис</button>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Име</th>
-                        <th>  </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.AllExtras)
-                    {
+        </form>
+            <div class="col-md-1"></div>
+            <div class="table-wrapper col-md-5">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Екстри</h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <a asp-action="CreateExtra" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Добави</span></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                <a asp-action="EditRoom" asp-route-id="@item.Id" class="edit">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                </a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                </a>
-                            </td>
-
+                            <th>ID</th>
+                            <th>Име</th>
+                            <th>  </th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AllExtras)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>

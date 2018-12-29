@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -26,29 +28,31 @@
 <div class="clearfix"></div>
 
 
-            <section class="about-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5 about-left">
-                            <p><label>Вила </label> <br/>  <span> Две-реки</span></p>
-                        </div>
-                        <div class="col-md-7 about-right">
-                            <h3>Описание на вилата</h3>
-                            <p>Вилата е на четири етажа и приема гости целогодишно. На три от етажите се намират 9 уютно обзаведени двойни стаи. На всеки етаж има 3 двойни стаи за почивка и баня със санитарен възел, от пролетта на 2016 г. на първи и втори етаж има изградени по още една баня със санитарен възел. Така във вилата има две стаи със самостоятелни бани, идеални за семейства с малки деца. </p>
-                            <p >Удобства </p>
-                            <ul>
+<section class="about-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 about-left">
+                <p><span>@Model.House.Name</span></p>
+            </div>
+            <div class="col-md-7 about-right">
+                <h3>Описание на вилата</h3>
+                <p>
+                    Тишината, спокойствието, чистият въздух, откритият басейн и барбекюто, ще Ви накарат да се откъснете от натовареното ежедневие. Високоскоростният интернет и сателитната телевизия към 4 различни оператора, ще Ви осигури постоянна осведоменост за нещата случващи се в по света.
+                </p>
+                <p>Удобства: </p>
+                <ul>
+                    @foreach (var item in Model.Extras)
+                    {
+                        <li>@item.Name</li>
+                    }
 
-                                <li>➲ Двор с барбекю</li>
-                                <li>➲ Интернер в цялата къща</li>
-                                <li>➲ Двор с паркинг</li>
-                                <li>➲ Камина в кухнята</li>
-  
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            </section>
+
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</section>
 
 
 

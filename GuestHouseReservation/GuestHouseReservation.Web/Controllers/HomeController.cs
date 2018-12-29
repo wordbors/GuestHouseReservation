@@ -5,28 +5,45 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GuestHouseReservation.Web.Models;
+using GuestHouseReservation.Services;
 
 namespace GuestHouseReservation.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAdminService AdminService;
+
+        public HomeController(IAdminService adminService)
+        {
+            AdminService = adminService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var houme = AdminService.GetHouse();
+            var extras = AdminService.GetExtras();
+
+            return View(new HomeViewModel {
+                House = houme,
+                Extras = extras
+            });
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            var houme = AdminService.GetHouse();
+            var extras = AdminService.GetExtras();
 
-            return View();
+            return View(new HomeViewModel
+            {
+                House = houme,
+                Extras = extras
+            });
         }
 
         public IActionResult Error()

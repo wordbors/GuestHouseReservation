@@ -8,82 +8,113 @@
 @{ var isloged = SignInManager.IsSignedIn(User);}
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="GuestInfo">
-            <text class="container">Стая ID @(Model.RoomID) </text>
-            <text class="container">Дата на настаняване @(Model.DateIN.ToString("dd/M/yyyy")) </text>
-            <text class="container">Дата на напускане @(Model.DateOUT.ToString("dd/M/yyyy")) </text>
-            <h4>Create a new account.</h4>
-            <hr />
-            <input value="@Model.DateIN" name="DateIN" type="hidden" />
-            <input value="@Model.DateOUT" name="DateOUT" type="hidden" />
-            <input asp-for="RoomID" class="form-control" type="hidden" />
-            @if (isloged)
-            {
+    <form asp-action="GuestInfo">
+        <text class="container" hidden>Стая ID @(Model.RoomID) </text>
+        <text class="container" hidden>Дата на настаняване @(Model.DateIN.ToString("dd/M/yyyy")) </text>
+        <text class="container" hidden>Дата на напускане @(Model.DateOUT.ToString("dd/M/yyyy")) </text>
+        <h4>Моля попълнете информацията за завършване на резервацията.</h4>
+        <hr />
+        <input value="@Model.DateIN" name="DateIN" type="hidden" />
+        <input value="@Model.DateOUT" name="DateOUT" type="hidden" />
+        <input asp-for="RoomID" class="form-control" type="hidden" />
+        @if (isloged)
+        {
+            <div class="form-group">
+                <input asp-for="UserID" class="form-control" type="hidden" />
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
-                    <input asp-for="UserID" class="form-control" type="hidden" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
+                    <label>Имейл</label>
+                    <input asp-for="Email" class="form-control" disabled />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FName"></label>
+                    <label>Име</label>
                     <input asp-for="FName" class="form-control" />
                     <span asp-validation-for="FName" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="col-md-3">
+
                 <div class="form-group">
-                    <label asp-for="LName"></label>
+                    <label>Фамилия</label>
                     <input asp-for="LName" class="form-control" />
                     <span asp-validation-for="LName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>
+                    <label>Телефон</label>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
-            }
-            else
-            {
-                <div asp-validation-summary="All" class="text-danger"></div>
+                <button type="submit" class="btn btn-success btn-md pull-right " data-toggle="modal" href="#myModal">Резервирай</button>
+            </div>
+
+
+        }
+        else
+        {
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="UserID" class="form-control" type="hidden" />
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
-                    <input asp-for="UserID" class="form-control" type="hidden" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
+                    <label>Имейл</label>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>
+                    <label>Парола</label>
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>
+                    <label>Потвърди парола</label>
                     <input asp-for="ConfirmPassword" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
-                    <label asp-for="FName"></label>
+                    <label>Име</label>
                     <input asp-for="FName" class="form-control" />
                     <span asp-validation-for="FName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LName"></label>
+                    <label>Фамилия</label>
                     <input asp-for="LName" class="form-control" />
                     <span asp-validation-for="LName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>
+                    <label>Телефон</label>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
-            }
 
-            <button type="submit" class="btn btn-default" asp-action="GuestInfo">Резервирай</button>
-        </form>
+                <button type="submit" class="btn btn-success btn-md pull-right " data-toggle="modal" href="#myModal">Резервирай</button>
+            </div>
+
+        }
+    </form>
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                    </div>
+                    <h4 class="modal-title">Успех!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Успешна резервация. Проверете вашият емайл за повече информация.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 

@@ -43,12 +43,31 @@
                             @Html.DisplayFor(modelItem => item.Discription)
                         </td>
                         <td>
-                            <a asp-action="EditRoom" asp-route-id="@item.ID" class="edit">
+                            <a asp-action="EditRoomType" asp-route-id="@item.ID" class="edit">
                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                             </a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
                                 <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                             </a>
+                            <div id="deleteEmployeeModal" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Изтриване на стая</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Сигурен ли сте, че искате да изтриете този тип стая?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Отказ">
+                                                <button asp-action="DeleteRoomType" asp-route-id="@item.ID" class="btn btn-danger btn-md pull-right ">Потвърди</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
 
                     </tr>
@@ -57,26 +76,7 @@
         </table>
     </div>
     <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Изтриване на стая</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Сигурен ли сте, че искате да изтриете тази стая?</p>
-                        <p class="text-warning"><small>Веднъж изтрита не може да се възстанови.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Отказ">
-                        <input type="submit" class="btn btn-danger" value="Потвърди">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
     <!-- Edit Modal HTML -->
     <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">

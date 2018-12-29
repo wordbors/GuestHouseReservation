@@ -75,26 +75,28 @@ namespace GuestHouseReservation.Services.Implementations
                 });
         }
 
-        public void CreateRoomType(string discription, string name, int capacity)
+        public void CreateRoomType(string discription, string name, int capacity, decimal price)
         {
             var roomType = new RoomType
             {
                 Name = name,
                 Discription = discription,
-                Capacity = capacity
+                Capacity = capacity,
+                Price = price
             };
 
             db.Add(roomType);
             db.SaveChanges();
         }
 
-        public void EditRoomType(int id,string discription, string name, int capacity)
+        public void EditRoomType(int id,string discription, string name, int capacity, decimal price)
         {
             var exsistingRoomType = db.RoomTypes.Find(id);
             if (exsistingRoomType == null)
             {
                 return;
             }
+            exsistingRoomType.Price = price;
             exsistingRoomType.Discription = discription;
             exsistingRoomType.Name = name;
             exsistingRoomType.Capacity = capacity;
@@ -115,12 +117,11 @@ namespace GuestHouseReservation.Services.Implementations
             return db.RoomTypes.Any(t => t.ID == id);
         }
 
-        public Room CreateRoom(string number, decimal price, int typeId)
+        public Room CreateRoom(string number, int typeId)
         {
             var room = new Room
             {
                 Number = number,
-                //Price = price,
                 TypeID = typeId
             };
 
@@ -174,7 +175,13 @@ namespace GuestHouseReservation.Services.Implementations
             {
                 return;
             }
-            ExsistingHouse = house;
+            ExsistingHouse.Name = house.Name;
+            ExsistingHouse.PhoneNumber = house.PhoneNumber;
+            ExsistingHouse.Discription = house.Discription;
+            ExsistingHouse.Price = house.Price;
+            ExsistingHouse.Email = house.Email;
+            ExsistingHouse.Address = house.Address;
+            ExsistingHouse.Capacity = house.Capacity;
             db.SaveChanges();
         }
 
@@ -190,9 +197,9 @@ namespace GuestHouseReservation.Services.Implementations
             db.SaveChanges();
         }
 
-        public void CreateExtra(int id, string name)
+        public void CreateExtra( string name)
         {
-            var extra = new Extra { Id = id, Name = name };
+            var extra = new Extra { Name = name };
             db.Add(extra);
             db.SaveChanges();
         }
@@ -241,7 +248,49 @@ namespace GuestHouseReservation.Services.Implementations
             }
             reservation.Status = status;
             db.SaveChanges();
+        }
 
+        public IEnumerable<ReservationsMade> GetReservationsByUserID(string userID)
+        {
+            var QueryReservation = db.Reservations.AsQueryable().Where(c=>c.UserID == userID);
+
+            return QueryReservation
+                .Select(c => new ReservationsMade
+                {
+                    ReservationID = c.ID,
+                    DateIN = c.DateIN,
+                    DateOUT = c.DateOUT,
+                    RoomNomer = c.Room.Number,
+                    RoomType = c.Room.RoomType.Name,
+                    UserName = c.User.FName + " " + c.User.LName,
+                    PhoneNumber = c.User.PhoneNumber,
+                    Status = c.Status
+                });
+        }
+
+        public void editUser(string userID, string fName, string lName)
+        {
+            var exsistingUser = db.Users.Find(userID);
+            if (exsistingUser == null)
+            {
+                return;
+            }
+  
+            exsistingUser.FName = fName;
+            exsistingUser.LName = lName;
+
+            db.SaveChanges();
+        }
+
+        public void DeleteRoomType(int id)
+        {
+            var roomtype = db.RoomTypes.Find(id);
+            if (roomtype == null)
+            {
+                return;
+            }
+            db.RoomTypes.Remove(roomtype);
+            db.SaveChanges();
         }
     }
 }

@@ -20,12 +20,11 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Номер</th>
                 <th>Цена</th>
                 <th>Капацитет</th>
                 <th>Тип</th>
-                <th>Описание</th>
+                @*<th>Описание</th>*@
                 <td></td>
             </tr>
         </thead>
@@ -33,15 +32,15 @@
             @foreach (var room in Model.AvailableRooms)
             {
                 <tr data-status="active">
-                    <td>@room.ID</td>
+                    <td hidden>@room.ID</td>
                     <td>@room.Number</td>
                     <td>@room.Price</td>
                     <td>@room.Capacity</td>
                     <td>@room.TypeName</td>
-                    <td>@room.Discription</td>
+                    @*<td>@room.Discription</td>*@
 
 
-                    <td class="btn btn-success"> @Html.ActionLink("Запази", "GuestInfo", new { id = room.ID, dateIN = Model.DateIN, dateOUT = Model.DateOUT })</td>
+                    <td class="btn btn-success"> @Html.ActionLink("Избери", "GuestInfo", new { id = room.ID, dateIN = Model.DateIN, dateOUT = Model.DateOUT })</td>
                 </tr>
             }
         </tbody>

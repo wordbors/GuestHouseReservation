@@ -11,6 +11,8 @@ using GuestHouseReservation.Web.Models.Reservation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace GuestHouseReservation.Web.Controllers
 {
@@ -30,11 +32,7 @@ namespace GuestHouseReservation.Web.Controllers
 
         public IActionResult ChoosingDates()
         {
-            return View(new SelectedDatesViewModel
-            {
-                DateIN = DateTime.Today,
-                DateOUT = DateTime.Today.AddDays(1)
-            });    
+            return View();    
         }
 
         [HttpPost]
@@ -147,11 +145,11 @@ namespace GuestHouseReservation.Web.Controllers
 
       /////////////// reservation 
             var house = ReservationService.GetHouseInfo();
-
+            decimal roomPrice;
             if (model.RoomID == house.ID)
             {
                 var roomIDs = ReservationService.GetRoomIDs();
-                var roomPrice = (house.Price * countDays) / roomIDs.Count();
+                roomPrice = (house.Price * countDays) / roomIDs.Count();
                 foreach (var item in roomIDs)
                 {
                     ReservationService.Reservation(UserID, item, model.DateIN, model.DateOUT,roomPrice);
@@ -159,11 +157,33 @@ namespace GuestHouseReservation.Web.Controllers
             }
             else
             {
-                var roomPrice = ReservationService.GetRoomPrice(model.RoomID);
+                roomPrice = ReservationService.GetRoomPrice(model.RoomID);
                 ReservationService.Reservation(UserID, model.RoomID, model.DateIN, model.DateOUT, (roomPrice*countDays));
             }
+            var userM = await UserManager.FindByEmailAsync(this.User.Identity.Name);
+
+            SendEmail(model.FName, userM.Email, roomPrice);
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        private void SendEmail(string UserName, string UserEmail, decimal Price)
+        {
+            var masage = new MimeMessage();
+            masage.From.Add(new MailboxAddress("Test", "wordbors@gmail.com"));
+            masage.To.Add(new MailboxAddress(UserName, UserEmail));
+            masage.Subject = "TEst";
+            masage.Body = new TextPart("plain") { Text = "Моля преведете " + Price +"лв. по сметка BG80 BNBG 9661 1020 3456 78 до 24 часа, за да завършите резервацията!" };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("wordbors@gmail.com", "98232683Yorgov93");
+
+                client.Send(masage);
+
+                client.Disconnect(true);
+            }
         }
     }
 }

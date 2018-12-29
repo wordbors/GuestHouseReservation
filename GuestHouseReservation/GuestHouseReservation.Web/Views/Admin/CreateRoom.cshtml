@@ -3,37 +3,40 @@
 @{
     ViewData["Title"] = "CreateRoom";
 }
-
-<h4>Добавяне на стая</h4>
+<hr />
+<h4>Добавяне на стая.</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateRoom"  enctype="multipart/form-data">
+        <form asp-action="CreateRoom">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
+                <label>Номер</label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TypeID"></label>
+                <label>Тип</label>
                 <select asp-for="TypeID" asp-items="Model.RoomTypes" class="form-control"></select>
                 <span asp-validation-for="TypeID" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div></div>
+
+                <button type="submit" class="btn btn-success btn-md pull-right ">Запис</button>
             </div>
         </form>
     </div>
 </div>
 
+@*@foreach (var photo in Model.Photos)
+    {
+        <img src="~/images/Rooms/@Model.ID/@photo" />
+    }*@
+
 <div>
-    <a asp-action="Index">Обратно</a>
+    <a asp-action="AllRooms">Назад</a>
 </div>
 

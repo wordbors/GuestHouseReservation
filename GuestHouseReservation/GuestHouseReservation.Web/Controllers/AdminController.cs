@@ -50,12 +50,8 @@ namespace GuestHouseReservation.Web.Controllers
         [HttpPost]
         public IActionResult CreateRoomType(RoomType model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
 
-            AdminService.CreateRoomType(model.Discription, model.Name, model.Capacity);
+            AdminService.CreateRoomType(model.Discription, model.Name, model.Capacity, model.Price);
 
             return RedirectToAction(nameof(AllRoomTypes));
         }
@@ -72,7 +68,8 @@ namespace GuestHouseReservation.Web.Controllers
                 ID = roomType.ID,
                 Capacity = roomType.Capacity,
                 Discription = roomType.Discription,
-                Name = roomType.Name
+                Name = roomType.Name,
+                Price = roomType.Price
             });
         }
 
@@ -91,10 +88,11 @@ namespace GuestHouseReservation.Web.Controllers
                 return NotFound();
             }
 
-            AdminService.EditRoomType(model.ID, model.Discription, model.Name, model.Capacity);
+            AdminService.EditRoomType(model.ID, model.Discription, model.Name, model.Capacity, model.Price);
 
             return RedirectToAction(nameof(AllRoomTypes));
         }
+
 
         public IActionResult CreateRoom()
         {
@@ -112,7 +110,7 @@ namespace GuestHouseReservation.Web.Controllers
                 return View(model);
             }
 
-            //var room = AdminService.CreateRoom(model.Number, model.Price, model.TypeID);
+            var room = AdminService.CreateRoom(model.Number, model.TypeID);
             //
             //Directory.CreateDirectory(@"wwwroot\images\Rooms\" + room.ID);
             //
@@ -169,6 +167,15 @@ namespace GuestHouseReservation.Web.Controllers
 
         public IActionResult DeleteRoom(int id)
         {
+            AdminService.DeleteRoom(id);
+
+            return RedirectToAction(nameof(AllRooms));
+        }
+
+        public IActionResult DeleteRoomType(int id)
+        {
+            AdminService.DeleteRoomType(id);
+
             return RedirectToAction(nameof(AllRooms));
         }
 
@@ -183,6 +190,27 @@ namespace GuestHouseReservation.Web.Controllers
                 House = house
             });
         }
+
+        public IActionResult EditHouse(AllExtrasViewModel model)
+        {
+            AdminService.EditHouse(model.House);
+
+            return RedirectToAction(nameof(AllHouseAndExtras));
+        }
+
+        public IActionResult CreateExtra()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateExtra(Extra model)
+        {
+            AdminService.CreateExtra(model.Name);
+
+            return RedirectToAction(nameof(AllHouseAndExtras));
+        }
+
 
         public IActionResult MadeReservations(int id, int param)
         {

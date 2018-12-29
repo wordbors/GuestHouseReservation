@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using GuestHouseReservation.Web.Models;
 using GuestHouseReservation.Web.Models.ManageViewModels;
 using GuestHouseReservation.Data.Models;
+using GuestHouseReservation.Services;
 
 namespace GuestHouseReservation.Web.Controllers
 {
@@ -24,6 +25,7 @@ namespace GuestHouseReservation.Web.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly IAdminService AdminService;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -32,16 +34,27 @@ namespace GuestHouseReservation.Web.Controllers
           UserManager<User> userManager,
           SignInManager<User> signInManager,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IAdminService adminService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            AdminService = adminService;
         }
 
         [TempData]
         public string StatusMessage { get; set; }
+
+        public async Task<IActionResult> UserReservations()
+        {
+            var user = await _userManager.FindByEmailAsync(this.User.Identity.Name);
+
+            var reservations = AdminService.GetReservationsByUserID(user.Id);
+
+            return View(new UserReservationViewModel { Reservations = reservations });
+        }
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -58,7 +71,9 @@ namespace GuestHouseReservation.Web.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                FName = user.FName,
+                LName = user.LName
             };
 
             return View(model);
@@ -99,7 +114,9 @@ namespace GuestHouseReservation.Web.Controllers
                 }
             }
 
-            StatusMessage = "Your profile has been updated";
+            AdminService.editUser(user.Id, model.FName, model.LName);
+
+            StatusMessage = "Успешно променихте вашите данни";
             return RedirectToAction(nameof(Index));
         }
 
@@ -169,7 +186,7 @@ namespace GuestHouseReservation.Web.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "Паролата ви беше променена.";
 
             return RedirectToAction(nameof(ChangePassword));
         }
